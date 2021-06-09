@@ -20,7 +20,7 @@ public class PersonResource
     {
         this.personService = personService;
     }
-   
+    
     @GetMapping("/all")
     public ResponseEntity<List<Person>> getAllPerson()
     {
