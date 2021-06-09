@@ -8,6 +8,6 @@ public class HomeController
     public String home()
     {
         System.out.println("response accepted");
-        return "src/main/webapp/index.html";
+        return "index.html";
     }
 }
