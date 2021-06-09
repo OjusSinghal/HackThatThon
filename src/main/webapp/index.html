@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>HackThatThon</title>
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
+    type="text/css" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<body id="page-top">
+  <!-- Navigation-->
+  <nav class="navbar navbar-expand-lg bg-secondary fixed-top" id="mainNav">
+    <div class="container">
+      <a href="#page-top" class="navbar-brand"
+        style="font-size: 40px; font-style: italic; font-weight: lighter; color: white;">Hack That Thon</a>
+      <!-- <a class="navbar-brand" href="#page-top">Hack That Thon</a>
+                <a class="navbar-brand" href="#page-top">Hack That Thon</a> -->
+      <button class="navbar-toggler text-uppercase font-weight-bold bg-primary text-white rounded" type="button"
+        data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+        Menu
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ms-auto">
+          <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#portfolio">Portfolio</a></li> -->
+          <!-- <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">About</a></li> -->
+          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
+              href="#createHackathonTeam">Create Hackathon Team</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Masthead-->
+  <header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+      <!-- Masthead Heading-->
+      <h1 class="masthead-heading text-uppercase mb-0">Meme time </h1> <br>
+      <!-- Masthead Avatar Image-->
+      <img class="masthead-avatar mb-5" src="assets/img/illus.jpg" alt="..." />
+      <!-- Masthead Subheading-->
+      <p class="masthead-subheading font-weight-light mb-0">Me after opening the Spring initialiser project in
+        IntelliJ Ultimate^</p>
+      <!-- Icon Divider-->
+      <div class="divider-custom divider-light">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hackathon Section -->
+  <section class="page-section" id="createHackathonTeam">
+    <div class="container">
+      <!-- Contact Section Heading-->
+      <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Create Hackathon Team</h2>
+      <!-- Icon Divider-->
+      <div class="divider-custom">
+        <div class="divider-custom-line"></div>
+        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+        <div class="divider-custom-line"></div>
+      </div>
+      <!-- Hackathon list Form-->
+
+
+      <div class="row justify-content-center">
+        <div class="col-lg-8 col-xl-7">
+
+          <form id="addTeamMembersForm">
+
+            <div class="form-floating mb-3">
+              <input class="form-control" id="firstName" type="text" placeholder="First Name" />
+              <label for="firstName">First Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input class="form-control" id="lastName" type="text" placeholder="Last Name" />
+              <label for="lastName">Last Name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+              <input class="form-control" id="email" type="email" placeholder="Email" />
+              <label for="email">Email</label>
+            </div>
+
+
+            <!-- Submit Button-->
+            <button class="btn btn-primary btn-xl" id="addTeamMember" type="button">Add Team Member</button>
+
+          </form>
+          <br>
+          <button class="btn btn-primary btn-xl" id="resetList" type="button">Reset Team</button>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+
+
+  <div class="page-section-heading text-center text-secondary mb-0">
+    <h2>Your Team Members</h2>
+    <ul class="text-uppercase text-primary">
+      <div id="teamList"></div>
+    </ul>
+  </div>
+
+  <br><br>
+  <!-- Copyright Section-->
+  <div class="copyright py-4 text-center text-white">
+    <div class="container"><small>Copyright &copy; HackThatThon</small></div>
+  </div>
+
+
+  <!-- Bootstrap core JS-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Core theme JS-->
+  <script src="js/scripts.js"></script>
+
+
+  <!-- // clear database when page loads -->
+  <script>
+    function docReady() {
+      let xrh = new XMLHttpRequest();
+      xrh.open("DELETE", 'http://localhost:8080/person/deleteAll', true)
+      xrh.send();
+    }
+    docReady();
+  </script>
+
+
+
+</body>
+
+<!-- //addTeamMember -->
+<script>
+  // load team
+  // <!-- //show all team memebers -->
+  function loadTeam() {
+    var xrh = new XMLHttpRequest();
+    xrh.open('GET', 'http://localhost:8080/person/all', true);
+    xrh.onload = function () {
+      if (this.status === 200) {
+        const members = JSON.parse(this.responseText);
+
+        let output = '';
+        for (const i in members) {
+          output += '<l>' + members[i].firstName + ' ' + members[i].lastName + ' [' + members[i].email + ']' + '</l > <br>'
+        }
+
+        document.getElementById('teamList').innerHTML = output;
+      }
+    }
+    xrh.send();
+  }
+
+
+  document.getElementById('addTeamMember').addEventListener('click', addNewMember);
+
+  document.getElementById('resetList').addEventListener('click', clearList);
+
+  //add member
+  function addNewMember() {
+    let firstName = document.getElementById('firstName').value;
+    let lastName = document.getElementById('lastName').value;
+    let email = document.getElementById('email').value;
+
+    let xrh = new XMLHttpRequest();
+    xrh.open('POST', 'http://localhost:8080/person/add', false);
+
+    xrh.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+
+    let params = JSON.stringify({
+      "firstName": firstName,
+      "lastName": lastName,
+      "email": email
+    });
+
+    console.log(params);
+    xrh.send(params);
+
+    loadTeam();
+  }
+
+  // clear list
+  function clearList() {
+
+    let xrh = new XMLHttpRequest();
+    xrh.open('DELETE', 'http://localhost:8080/person/deleteAll', false);
+    xrh.send();
+
+
+    loadTeam();
+
+  }
+</script>
+
+</html>
