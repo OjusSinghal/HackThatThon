@@ -8,6 +8,7 @@
   <meta name="author" content="" />
   <title>HackThatThon</title>
   <!-- Favicon-->
+  
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Font Awesome icons (free version)-->
   <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
@@ -136,7 +137,7 @@
   <script>
     function docReady() {
       let xrh = new XMLHttpRequest();
-      xrh.open("DELETE", 'http://localhost:8080/person/deleteAll', true)
+      xrh.open("DELETE", '/person/deleteAll', true)
       xrh.send();
     }
     docReady();
@@ -152,7 +153,7 @@
   // <!-- //show all team memebers -->
   function loadTeam() {
     var xrh = new XMLHttpRequest();
-    xrh.open('GET', 'http://localhost:8080/person/all', true);
+    xrh.open('GET', '/person/all', true);
     xrh.onload = function () {
       if (this.status === 200) {
         const members = JSON.parse(this.responseText);
@@ -180,7 +181,7 @@
     let email = document.getElementById('email').value;
 
     let xrh = new XMLHttpRequest();
-    xrh.open('POST', 'http://localhost:8080/person/add', false);
+    xrh.open('POST', '/person/add', false);
 
     xrh.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 
@@ -201,7 +202,7 @@
   function clearList() {
 
     let xrh = new XMLHttpRequest();
-    xrh.open('DELETE', 'http://localhost:8080/person/deleteAll', false);
+    xrh.open('DELETE', '/person/deleteAll', false);
     xrh.send();
 
 

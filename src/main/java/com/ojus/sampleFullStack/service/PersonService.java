@@ -13,7 +13,7 @@ import java.util.UUID;
 @Service
 public class PersonService
 {
-    private final PersonRepo personRepo;
+    private PersonRepo personRepo;
     
     @Autowired
     public PersonService(PersonRepo personRepo)
