@@ -12,7 +12,7 @@ public class HomeController
     public ModelAndView home()
     {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("./index.html");
+        mv.setViewName("index.html");
         
         System.out.println("response accepted");
         return mv;
