@@ -22,13 +22,13 @@ public class PersonResource
         this.personService = personService;
     }
     
-    @RequestMapping()
+    @RequestMapping("/")
     public ModelAndView home()
     {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index.html");
 
-        System.out.println("response accepted");
+        System.out.println("home page through model and view");
         return mv;
     }
 
