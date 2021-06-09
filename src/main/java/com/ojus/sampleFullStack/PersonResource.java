@@ -7,11 +7,12 @@ import com.ojus.sampleFullStack.service.PersonService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/person")
+@RequestMapping()
 public class PersonResource
 {
     private final PersonService personService;
@@ -19,6 +20,16 @@ public class PersonResource
     public PersonResource(PersonService personService)
     {
         this.personService = personService;
+    }
+    
+    @RequestMapping()
+    public ModelAndView home()
+    {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("index.html");
+
+        System.out.println("response accepted");
+        return mv;
     }
 
     @GetMapping("/all")
