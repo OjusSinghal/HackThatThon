@@ -67,3 +67,11 @@ public class Person implements Serializable
                 '}';
     }
 }
+
+//@Entity
+//class announcements implements seri
+//{
+//    private id;
+//    private date;
+//    private timestamp;
+//}

@@ -116,7 +116,8 @@
   <div class="page-section-heading text-center text-secondary mb-0">
     <h2>Your Team Members</h2>
     <ul class="text-uppercase text-primary">
-      <div id="teamList"></div>
+      <div id="teamList">
+      </div>
     </ul>
   </div>
 
@@ -142,8 +143,6 @@
     }
     docReady();
   </script>
-
-
 
 </body>
 
@@ -192,7 +191,7 @@
       "email": email
     });
 
-    console.log(params);
+    // console.log(params);
     xrh.send(params);
 
     loadTeam();
