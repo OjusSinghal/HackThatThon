@@ -75,4 +75,16 @@ public class PersonResource
         personService.deleteAllPersons();
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    
+    @GetMapping("/namePresent/{firstName}/{lastName}")
+    public ResponseEntity<Person> findByName(@PathVariable String firstName, @PathVariable String lastName)
+    {
+        return new ResponseEntity<>(personService.findByName(firstName, lastName), HttpStatus.OK);
+    }
+    
+    @GetMapping("isPresent/{firstName}/{lastName}")
+    public ResponseEntity<Boolean> isPresent(@PathVariable String firstName, @PathVariable String lastName)
+    {
+        return new ResponseEntity<>(personService.isPresent(firstName, lastName), HttpStatus.OK);
+    }
 }

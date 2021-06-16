@@ -51,4 +51,18 @@ public class PersonService
     
     public void deleteAllPersons() { personRepo.deleteAll(); }
     
+    public Person findByName(String firstName, String lastName)
+    {
+        System.out.println(firstName + " " + lastName);
+        List<Person> p = personRepo.findByFirstNameAndLastName(firstName, lastName);
+        System.out.println(p.get(0));
+//        System.out.println(p.toString());
+        return p.get(0);
+    }
+    
+    public boolean isPresent(String firstName, String lastName)
+    {
+        List<Person> personsSatisfied = personRepo.findByFirstNameAndLastName(firstName, lastName);
+        return personsSatisfied.size() > 0;
+    }
 }

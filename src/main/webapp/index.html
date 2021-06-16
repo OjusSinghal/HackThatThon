@@ -8,7 +8,7 @@
   <meta name="author" content="" />
   <title>HackThatThon</title>
   <!-- Favicon-->
-  
+
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
   <!-- Font Awesome icons (free version)-->
   <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
@@ -100,10 +100,53 @@
 
             <!-- Submit Button-->
             <button class="btn btn-primary btn-xl" id="addTeamMember" type="button">Add Team Member</button>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button class="btn btn-primary btn-xl" id="resetList" type="button">Reset Team</button>
 
           </form>
           <br>
-          <button class="btn btn-primary btn-xl" id="resetList" type="button">Reset Team</button>
+          <br>
+
+          <div class="text-center text-secondary mb-0">
+            <h2>Your Team Members</h2>
+            <ul class="text-primary" style="font-size: 25px;">
+              <div id="teamList"></div>
+            </ul>
+          </div>
+          <br><br><br><br>
+
+
+          <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Find Team Member</h2>
+          <!-- Icon Divider-->
+          <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+          </div>
+
+          <form>
+
+            <div class="form-floating mb-3">
+              <input class="form-control" id="findFirstName" type="text" placeholder="First Name" />
+              <label for="findFirstName">First Name</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input class="form-control" id="findLastName" type="text" placeholder="Last Name" />
+              <label for="findLastName">Last Name</label>
+            </div>
+            <!-- Submit Button-->
+            <button class="btn btn-primary btn-xl" id="findMember" type="button">Find Team Member</button>
+
+          </form>
+          <br>
+          <div class="page-section-heading text-center text-secondary mb-0">
+            <h2>Found Member</h2>
+            <div class="text-primary">
+              <div id="foundMember"></div>
+            </div>
+          </div>
+          <br>
+
         </div>
       </div>
 
@@ -113,13 +156,7 @@
 
 
 
-  <div class="page-section-heading text-center text-secondary mb-0">
-    <h2>Your Team Members</h2>
-    <ul class="text-uppercase text-primary">
-      <div id="teamList">
-      </div>
-    </ul>
-  </div>
+
 
   <br><br>
   <!-- Copyright Section-->
@@ -148,6 +185,45 @@
 
 <!-- //addTeamMember -->
 <script>
+  // find member
+
+  document.getElementById('findMember').addEventListener('click', findMember);
+
+
+  function findMember() {
+    let firstName = document.getElementById('findFirstName').value;
+    let lastName = document.getElementById('findLastName').value;
+
+    xrhPresent = new XMLHttpRequest();
+
+    const query = '/isPresent/' + firstName + '/' + lastName;
+    xrhPresent.open('GET', query, false)
+    xrhPresent.onload = function () {
+      if (this.status === 200) {
+        if (this.responseText == "true") {
+          xrh = new XMLHttpRequest();
+
+          const querynew = '/namePresent/' + firstName + '/' + lastName;
+
+          xrh.open('GET', querynew, false)
+          xrh.onload = function () {
+            if (this.status === 200) {
+
+              const member = JSON.parse(this.responseText);
+              let output = member.firstName + ' ' + member.lastName + ' [' + member.email + ']';
+              document.getElementById('foundMember').innerHTML = output;
+            }
+          }
+          xrh.send();
+        }
+        else {
+          document.getElementById('foundMember').innerHTML = "not found";
+        }
+      }
+    }
+    xrhPresent.send();
+  }
+
   // load team
   // <!-- //show all team memebers -->
   function loadTeam() {
