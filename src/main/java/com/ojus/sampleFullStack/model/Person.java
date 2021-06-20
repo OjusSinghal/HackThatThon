@@ -2,6 +2,7 @@ package com.ojus.sampleFullStack.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity // Because we want the objects of this class to be stored in an "entity" (table) in a database
 
@@ -15,6 +16,17 @@ public class Person implements Serializable
     private String firstName;
     private String lastName;
     private String email;
+    private LocalDate date;
+    
+    public LocalDate getDate()
+    {
+        return date;
+    }
+    
+    public void setDate(LocalDate date)
+    {
+        this.date = date;
+    }
     
     public void setId(long id)
     {
@@ -56,6 +68,7 @@ public class Person implements Serializable
         this.email = email;
     }
     
+    
     @Override
     public String toString()
     {
@@ -64,6 +77,8 @@ public class Person implements Serializable
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", date=" + date +
                 '}';
     }
+    
 }

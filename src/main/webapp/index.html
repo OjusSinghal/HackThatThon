@@ -97,6 +97,11 @@
               <label for="email">Email</label>
             </div>
 
+            <div class="form-floating mb-3">
+              <input class="form-control" id="date" type="number" placeholder="Date" />
+              <label for="date">Date</label>
+            </div>
+
 
             <!-- Submit Button-->
             <button class="btn btn-primary btn-xl" id="addTeamMember" type="button">Add Team Member</button>
@@ -140,9 +145,38 @@
           </form>
           <br>
           <div class="page-section-heading text-center text-secondary mb-0">
-            <h2>Found Member</h2>
+            <h2>Found Members</h2>
             <div class="text-primary">
               <div id="foundMember"></div>
+            </div>
+          </div>
+          <br><br> <br><br>
+
+          <!-- FIND TEAM MEMBER BY DATE -->
+
+          <h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">Find Team Member by Date</h2>
+          <!-- Icon Divider-->
+          <div class="divider-custom">
+            <div class="divider-custom-line"></div>
+            <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+            <div class="divider-custom-line"></div>
+          </div>
+
+          <form>
+
+            <div class="form-floating mb-3">
+              <input class="form-control" id="findDate" type="number" placeholder="Date" />
+              <label for="findDate">Date</label>
+            </div>
+            <!-- Submit Button-->
+            <button class="btn btn-primary btn-xl" id="findMemberByDate" type="button">Find Team Member</button>
+
+          </form>
+          <br>
+          <div class="page-section-heading text-center text-secondary mb-0">
+            <h2>Found Members</h2>
+            <div class="text-primary">
+              <div id="foundMemberByDate"></div>
             </div>
           </div>
           <br>
@@ -188,6 +222,26 @@
   // find member
 
   document.getElementById('findMember').addEventListener('click', findMember);
+
+  document.getElementById('addTeamMember').addEventListener('click', addNewMember);
+
+  document.getElementById('resetList').addEventListener('click', clearList);
+
+  document.getElementById('findMemberByDate').addEventListener('click', findMemberByDate);
+
+  function findMemberByDate() {
+    let query = '/findByDate/' + document.getElementById('findDate').value;
+    xrh = new XMLHttpRequest();
+    xrh.open('GET', query, 'false');
+    xrh.onload = function () {
+      if (this.status === 200) {
+        const member = JSON.parse(this.responseText);
+        let output = member.firstName + ' ' + member.lastName + ' [' + member.email + ']';
+        document.getElementById('foundMemberByDate').innerHTML = output;
+      }
+    }
+    xrh.send();
+  }
 
 
   function findMember() {
@@ -245,18 +299,15 @@
   }
 
 
-  document.getElementById('addTeamMember').addEventListener('click', addNewMember);
-
-  document.getElementById('resetList').addEventListener('click', clearList);
-
   //add member
   function addNewMember() {
     let firstName = document.getElementById('firstName').value;
     let lastName = document.getElementById('lastName').value;
     let email = document.getElementById('email').value;
+    let date = document.getElementById('date').value
 
     let xrh = new XMLHttpRequest();
-    xrh.open('POST', '/add', false);
+    xrh.open('POST', '/add/' + date, false);
 
     xrh.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 

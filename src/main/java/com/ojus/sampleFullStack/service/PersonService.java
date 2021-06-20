@@ -7,6 +7,7 @@ import com.ojus.sampleFullStack.repo.PersonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,5 +65,10 @@ public class PersonService
     {
         List<Person> personsSatisfied = personRepo.findByFirstNameAndLastName(firstName, lastName);
         return personsSatisfied.size() > 0;
+    }
+    
+    public Person findByDate(int date)
+    {
+        return personRepo.findByDate(LocalDate.of(2021, 6, date));
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -47,9 +48,10 @@ public class PersonResource
         return new ResponseEntity<>(personService.findPerson(id), HttpStatus.OK);
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Person> addPerson(@RequestBody Person person)
+    @PostMapping("/add/{date}")
+    public ResponseEntity<Person> addPerson(@RequestBody Person person, @PathVariable int date)
     {
+        person.setDate(LocalDate.of(2021, 6, date));
         Person newPerson = personService.addPerson(person);
         return new ResponseEntity<>(newPerson, HttpStatus.CREATED);
     }
@@ -86,5 +88,11 @@ public class PersonResource
     public ResponseEntity<Boolean> isPresent(@PathVariable String firstName, @PathVariable String lastName)
     {
         return new ResponseEntity<>(personService.isPresent(firstName, lastName), HttpStatus.OK);
+    }
+    
+    @GetMapping("findByDate/{date}")
+    public ResponseEntity<Person> findByDate(@PathVariable int date)
+    {
+        return new ResponseEntity<>(personService.findByDate(date), HttpStatus.OK);
     }
 }
